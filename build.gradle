@@ -1,0 +1,12 @@
+allprojects {
+
+    apply plugin: 'java'
+
+    group 'com.eikefab'
+    version '1.0.0'
+
+    repositories {
+        mavenCentral()
+    }
+
+}
