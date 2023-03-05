@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 public class ConfigTests {
 
     @Test
-    public void testPath() {
+    public void pathTest() {
         final String example = "marketValueLimit";
 
         assertEquals(Pathfinder.getPath(example), "market.value.limit");
@@ -25,6 +25,7 @@ public class ConfigTests {
         assertEquals(config.limit(), 1);
         assertFalse(config.is());
         assertEquals(config.helloThereHowItsGoing(), "Hello! It's fine! :)");
+        assertEquals(config.justTestingADefaultPathNotCreatedAutomatically(), "It works.");
     }
 
 }

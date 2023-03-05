@@ -13,6 +13,7 @@ public class CustomConfigReader extends ConfigurationReader {
        put("limit", 1);
        put("is", false);
        put("hello.there.how.its.going", "Hello! It's fine! :)");
+       put("just-testing", "It works.");
     }};
 
     @Override

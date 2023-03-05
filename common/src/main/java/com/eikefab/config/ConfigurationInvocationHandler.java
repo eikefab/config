@@ -13,7 +13,19 @@ public class ConfigurationInvocationHandler implements InvocationHandler {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        final String path = Pathfinder.getPath(method);
+        final Class<?> clazz = method.getDeclaringClass();
+
+        String path = "";
+
+        if (clazz.isAnnotationPresent(ConfigPath.class)) {
+            path = clazz.getAnnotation(ConfigPath.class).value();
+        }
+
+        if (method.isAnnotationPresent(ConfigPath.class)) {
+            path += method.getAnnotation(ConfigPath.class).value();
+        } else {
+            path += Pathfinder.getPath(method);
+        }
 
         return configurationReader.get(path);
     }
