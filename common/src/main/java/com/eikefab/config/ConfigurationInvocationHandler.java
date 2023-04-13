@@ -19,6 +19,10 @@ public class ConfigurationInvocationHandler implements InvocationHandler {
 
         if (clazz.isAnnotationPresent(ConfigPath.class)) {
             path = clazz.getAnnotation(ConfigPath.class).value();
+
+            if (!path.endsWith(".")) {
+                path += ".";
+            }
         }
 
         if (method.isAnnotationPresent(ConfigPath.class)) {

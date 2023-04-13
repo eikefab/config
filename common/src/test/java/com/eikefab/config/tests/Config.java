@@ -1,9 +1,8 @@
 package com.eikefab.config.tests;
 
 import com.eikefab.config.ConfigPath;
-import com.eikefab.config.Configuration;
 
-public interface Config extends Configuration {
+public interface Config {
 
     String hey();
     String hello();

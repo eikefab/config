@@ -4,7 +4,7 @@ import java.lang.reflect.Proxy;
 
 public class ConfigurationLoader {
 
-    public <T> T implement(Class<? extends Configuration> clazz, ConfigurationReader reader) {
+    public <T> T implement(Class<?> clazz, ConfigurationReader reader) {
         return (T)
                 Proxy.newProxyInstance(
                     clazz.getClassLoader(),

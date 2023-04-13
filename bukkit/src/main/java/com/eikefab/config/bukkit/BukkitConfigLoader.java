@@ -16,14 +16,18 @@ public class BukkitConfigLoader extends ConfigurationLoader {
         this.plugin = plugin;
     }
 
-    public <T> T implement(Class<? extends Configuration> clazz, File file) {
+    public <T> T implement(Class<?> clazz, File file) {
         return super.implement(clazz, new BukkitConfigReader(file));
     }
 
-    public <T> T implement(Class<? extends Configuration> clazz, String name) {
+    public <T> T implement(Class<?> clazz, String name) {
         final File file = new File(plugin.getDataFolder(), name);
 
         return super.implement(clazz, new BukkitConfigReader(file));
+    }
+
+    public <T> T implement(Class<?> clazz) {
+        return implement(clazz, "config.yml");
     }
 
 }
