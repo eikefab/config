@@ -12,7 +12,7 @@ public class ConfigurationInvocationHandler implements InvocationHandler {
     }
 
     @Override
-    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+    public Object invoke(Object proxy, Method method, Object[] args) {
         final Class<?> clazz = method.getDeclaringClass();
 
         String path = "";
@@ -26,7 +26,12 @@ public class ConfigurationInvocationHandler implements InvocationHandler {
         }
 
         if (method.isAnnotationPresent(ConfigPath.class)) {
-            path += method.getAnnotation(ConfigPath.class).value();
+            final ConfigPath configPath = method.getAnnotation(ConfigPath.class);
+
+            final String value = configPath.value();
+            final String actualValue = value.length() == 0 ? Pathfinder.getPath(method) : value;
+
+            path += actualValue.replace('.', configPath.separator());
         } else {
             path += Pathfinder.getPath(method);
         }

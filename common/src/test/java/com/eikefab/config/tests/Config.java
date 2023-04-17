@@ -13,4 +13,7 @@ public interface Config {
     @ConfigPath("just-testing")
     String justTestingADefaultPathNotCreatedAutomatically();
 
+    @ConfigPath(separator = '-')
+    String testSeparator();
+
 }

@@ -23,7 +23,7 @@ public class BukkitConfigLoader extends ConfigurationLoader {
     public <T> T implement(Class<?> clazz, String name) {
         final File file = new File(plugin.getDataFolder(), name);
 
-        return super.implement(clazz, new BukkitConfigReader(file));
+        return implement(clazz, file);
     }
 
     public <T> T implement(Class<?> clazz) {
