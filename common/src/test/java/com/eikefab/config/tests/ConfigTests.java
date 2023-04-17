@@ -26,6 +26,7 @@ public class ConfigTests {
         assertFalse(config.is());
         assertEquals(config.helloThereHowItsGoing(), "Hello! It's fine! :)");
         assertEquals(config.justTestingADefaultPathNotCreatedAutomatically(), "It works.");
+        assertEquals(config.testSeparator(), "Separator works.");
     }
 
 }
