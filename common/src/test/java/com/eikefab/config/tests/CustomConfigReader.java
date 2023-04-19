@@ -1,5 +1,6 @@
 package com.eikefab.config.tests;
 
+import com.eikefab.config.ConfigSerializer;
 import com.eikefab.config.ConfigurationReader;
 
 import java.util.HashMap;
@@ -20,6 +21,11 @@ public class CustomConfigReader extends ConfigurationReader {
     @Override
     public Object get(String path) {
         return values.get(path);
+    }
+
+    @Override
+    public Object get(String path, Class<? extends ConfigSerializer<?>> clazz) {
+        return get(path);
     }
 
     @Override

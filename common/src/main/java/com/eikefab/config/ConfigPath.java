@@ -11,5 +11,6 @@ public @interface ConfigPath {
 
     String value() default "";
     char separator() default '.';
+    Class<? extends ConfigSerializer<?>>[] serializers() default {};
 
 }
