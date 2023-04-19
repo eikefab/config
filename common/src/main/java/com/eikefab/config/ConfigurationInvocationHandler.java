@@ -12,7 +12,7 @@ public class ConfigurationInvocationHandler implements InvocationHandler {
     }
 
     @Override
-    public Object invoke(Object proxy, Method method, Object[] args) {
+    public Object invoke(Object proxy, Method method, Object[] args) throws Exception {
         final Class<?> clazz = method.getDeclaringClass();
 
         String path = "";
@@ -28,10 +28,17 @@ public class ConfigurationInvocationHandler implements InvocationHandler {
         if (method.isAnnotationPresent(ConfigPath.class)) {
             final ConfigPath configPath = method.getAnnotation(ConfigPath.class);
 
+            final Class<? extends ConfigSerializer<?>>[] serializers = configPath.serializers();
             final String value = configPath.value();
+
+            final Class<? extends ConfigSerializer<?>> serializer = serializers.length == 0 ? null : serializers[0];
             final String actualValue = value.length() == 0 ? Pathfinder.getPath(method) : value;
 
             path += actualValue.replace('.', configPath.separator());
+
+            if (serializer != null) {
+                return configurationReader.get(path, serializer);
+            }
         } else {
             path += Pathfinder.getPath(method);
         }
