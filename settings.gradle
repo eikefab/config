@@ -2,4 +2,5 @@ rootProject.name = 'config'
 include 'common'
 include 'bukkit'
 include 'bukkit-auto-updater'
+include 'bungee'
 

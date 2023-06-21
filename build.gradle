@@ -1,6 +1,7 @@
 allprojects {
 
     apply plugin: 'java'
+    apply plugin: 'java-library'
 
     group 'com.eikefab'
     version '1.0.0'

@@ -1,22 +1,28 @@
-package com.eikefab.config.bukkit;
+package com.eikefab.config.bungee;
 
 import com.eikefab.config.ConfigurationLoader;
-import org.bukkit.plugin.Plugin;
+import net.md_5.bungee.api.plugin.Plugin;
 
 import java.io.File;
 
-public class BukkitConfigLoader extends ConfigurationLoader {
+public class BungeeConfigLoader extends ConfigurationLoader {
 
     private final Plugin plugin;
 
-    public BukkitConfigLoader(Plugin plugin) {
-        plugin.getDataFolder().mkdir();
-
+    public BungeeConfigLoader(Plugin plugin) {
         this.plugin = plugin;
+
+        plugin.getDataFolder().mkdir();
     }
 
     public <T> T implement(Class<?> clazz, File file) {
-        return super.implement(clazz, new BukkitConfigReader(file));
+        try {
+            return super.implement(clazz, new BungeeConfigReader(file, plugin));
+        } catch (Exception exception) {
+            exception.printStackTrace();
+
+            return null;
+        }
     }
 
     public <T> T implement(Class<?> clazz, String name) {
