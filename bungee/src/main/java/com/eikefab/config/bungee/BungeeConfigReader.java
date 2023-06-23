@@ -22,28 +22,32 @@ public class BungeeConfigReader extends ConfigurationReader {
     private static final ConfigurationProvider PROVIDER = ConfigurationProvider.getProvider(YamlConfiguration.class);
 
     private final Plugin plugin;
-    private final File file;
     private final Configuration configuration;
 
     public BungeeConfigReader(File file, Plugin plugin) throws IOException {
-        this.file = file;
         this.plugin = plugin;
 
-        load();
+        load(file);
 
         this.configuration = PROVIDER.load(file);
     }
 
-    private void load() {
-        final File folder = file.getParentFile();
+    private void load(File file) {
+        final File folder = plugin.getDataFolder();
 
         if (!folder.exists()) {
             folder.mkdir();
         }
 
+        final String name = file.getName();
+
         if (!file.exists()) {
-            try (InputStream inputStream = plugin.getResourceAsStream(file.getName())) {
-                Files.copy(inputStream, file.toPath());
+            try (InputStream inputStream = plugin.getResourceAsStream(name)) {
+                final File data = new File(folder, name);
+
+                if (!data.exists()) {
+                    Files.copy(inputStream, data.toPath());
+                }
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
