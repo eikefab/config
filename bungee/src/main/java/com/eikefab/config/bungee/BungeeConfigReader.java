@@ -27,10 +27,10 @@ public class BungeeConfigReader extends ConfigurationReader {
 
     public BungeeConfigReader(File file, Plugin plugin) throws IOException {
         this.file = file;
+        this.plugin = plugin;
 
         load();
 
-        this.plugin = plugin;
         this.configuration = PROVIDER.load(file);
     }
 
