@@ -19,7 +19,7 @@ public class ConfigurationInvocationHandler implements InvocationHandler {
         boolean raw = false;
 
         if (clazz.isAnnotationPresent(ConfigPath.class)) {
-            final ConfigPath configPath = method.getAnnotation(ConfigPath.class);
+            final ConfigPath configPath = clazz.getAnnotation(ConfigPath.class);
 
             path = clazz.getAnnotation(ConfigPath.class).value();
             raw = configPath.raw();
