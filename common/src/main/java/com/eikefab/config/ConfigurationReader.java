@@ -4,7 +4,7 @@ import java.util.Map;
 
 public abstract class ConfigurationReader {
 
-    public abstract Object get(String path);
+    public abstract Object get(String path, boolean raw);
     public abstract Object get(String path, Class<? extends ConfigSerializer<?>> clazz);
     public abstract void set(String path, Object value);
     public abstract void save();

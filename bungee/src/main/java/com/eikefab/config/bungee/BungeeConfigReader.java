@@ -55,18 +55,20 @@ public class BungeeConfigReader extends ConfigurationReader {
     }
 
     @Override
-    public Object get(String path) {
+    public Object get(String path, boolean raw) {
         Object object = configuration.get(path);
 
-        if (object instanceof String) {
-            object = Colorizer.apply(object.toString());
-        }
+        if (!raw) {
+            if (object instanceof String) {
+                object = Colorizer.apply(object.toString());
+            }
 
-        if (object instanceof List) {
-            object = ((List<String>) object)
-                    .stream()
-                    .map(Colorizer::apply)
-                    .collect(Collectors.toList());
+            if (object instanceof List) {
+                object = ((List<String>) object)
+                        .stream()
+                        .map(Colorizer::apply)
+                        .collect(Collectors.toList());
+            }
         }
 
         return object;
@@ -78,7 +80,7 @@ public class BungeeConfigReader extends ConfigurationReader {
             final ConfigSerializer<?> serializer = clazz.newInstance();
 
             if (!(configuration.get(path) instanceof Configuration)) {
-                return get(path);
+                return get(path, false);
             }
 
             final Configuration section = configuration.getSection(path);
@@ -95,7 +97,7 @@ public class BungeeConfigReader extends ConfigurationReader {
             exception.printStackTrace();
         }
 
-        return get(path);
+        return get(path, false);
     }
 
     @Override

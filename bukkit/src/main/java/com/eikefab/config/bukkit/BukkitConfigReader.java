@@ -32,18 +32,20 @@ public class BukkitConfigReader extends ConfigurationReader {
     }
 
     @Override
-    public Object get(String path) {
+    public Object get(String path, boolean raw) {
         Object object = fileConfiguration.get(path);
 
-        if (object instanceof String) {
-            object = Colorizer.apply(object.toString());
-        }
+        if (!raw) {
+            if (object instanceof String) {
+                object = Colorizer.apply(object.toString());
+            }
 
-        if (object instanceof List) {
-            object = ((List<String>) object)
-                    .stream()
-                    .map(Colorizer::apply)
-                    .collect(Collectors.toList());
+            if (object instanceof List) {
+                object = ((List<String>) object)
+                        .stream()
+                        .map(Colorizer::apply)
+                        .collect(Collectors.toList());
+            }
         }
 
         return object;
@@ -55,7 +57,7 @@ public class BukkitConfigReader extends ConfigurationReader {
             final ConfigSerializer<?> serializer = clazz.newInstance();
 
             if (!fileConfiguration.isConfigurationSection(path)) {
-                return get(path);
+                return get(path, false);
             }
 
             final ConfigurationSection section = fileConfiguration.getConfigurationSection(path);
@@ -72,7 +74,7 @@ public class BukkitConfigReader extends ConfigurationReader {
             exception.printStackTrace();
         }
 
-        return get(path);
+        return get(path, false);
     }
 
     @Override

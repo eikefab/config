@@ -19,13 +19,13 @@ public class CustomConfigReader extends ConfigurationReader {
     }};
 
     @Override
-    public Object get(String path) {
+    public Object get(String path, boolean raw) {
         return values.get(path);
     }
 
     @Override
     public Object get(String path, Class<? extends ConfigSerializer<?>> clazz) {
-        return get(path);
+        return get(path, false);
     }
 
     @Override
