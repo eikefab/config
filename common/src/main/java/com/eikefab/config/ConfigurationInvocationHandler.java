@@ -24,7 +24,7 @@ public class ConfigurationInvocationHandler implements InvocationHandler {
             path = clazz.getAnnotation(ConfigPath.class).value();
             raw = configPath.raw();
 
-            if (!path.endsWith(".")) {
+            if (!path.isEmpty() && !path.endsWith(".")) {
                 path += ".";
             }
         }
