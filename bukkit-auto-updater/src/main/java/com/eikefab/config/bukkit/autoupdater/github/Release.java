@@ -64,11 +64,7 @@ public class Release {
             actualFolder.mkdir();
         }
 
-        if (target.isEmpty()) {
-            return null;
-        }
-
-        return target.get().download(folder, token);
+        return target.map(asset -> asset.download(folder, token)).orElse(null);
     }
 
     public File download(File folder, String assetName) {
