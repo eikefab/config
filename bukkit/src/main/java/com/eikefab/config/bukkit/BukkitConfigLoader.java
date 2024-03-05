@@ -20,7 +20,7 @@ public class BukkitConfigLoader extends ConfigurationLoader {
     }
 
     public <T> T implement(Class<?> clazz, String name) {
-        final File file = new File(plugin.getDataFolder(), name);
+        final File file = new File(plugin.getDataFolder(), name.endsWith(".yml") ? name : name + ".yml");
 
         return implement(clazz, file);
     }
